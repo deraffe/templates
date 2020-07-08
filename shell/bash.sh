@@ -43,6 +43,11 @@ run() {
   )
 }
 
+cleanup() {
+  info "Cleaning up..."
+  info "Done."
+}
+
 usage() {
   echo2 "${BASH_SOURCE[0]} [options] {command}
 
@@ -83,6 +88,7 @@ if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
       usage
       ;;
     example)
+      trap cleanup EXIT
       shift 1
       cmd_example "$@"
       ;;
