@@ -72,8 +72,8 @@ usage() {
 }
 
 cmd_example() {
-  arg_one="${1:?Please provide an argument}"
-  arg_two="${2:-}"
+  local arg_one="${1:?Please provide an argument}"
+  local arg_two="${2:-}"
   debug "Example command"
   warn "Example warning: ${arg_one}"
   error "Example error (${arg_two})"
