@@ -81,8 +81,8 @@ cmd_example() {
 }
 
 if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
-  LOGLEVEL="${LOGLEVEL:-WARN}"
-  LOGLVL="${LOGLVL:-2}"
+  : "${LOGLEVEL:=WARN}"
+  : "${LOGLVL:=2}"
   case "${1:-}" in
     -h | --h*)
       usage
