@@ -75,18 +75,20 @@ cmd_example() {
   run uname -a
 }
 
-LOGLEVEL="${LOGLEVEL:-WARN}"
-LOGLVL="${LOGLVL:-2}"
-case "${1:-}" in
-  -h | --h*)
-    usage
-    ;;
-  example)
-    shift 1
-    cmd_example "$@"
-    ;;
-  "" | *)
-    usage
-    exit 1
-    ;;
-esac
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  LOGLEVEL="${LOGLEVEL:-WARN}"
+  LOGLVL="${LOGLVL:-2}"
+  case "${1:-}" in
+    -h | --h*)
+      usage
+      ;;
+    example)
+      shift 1
+      cmd_example "$@"
+      ;;
+    "" | *)
+      usage
+      exit 1
+      ;;
+  esac
+fi
