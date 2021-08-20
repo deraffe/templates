@@ -13,25 +13,25 @@ log() {
 }
 
 debug() {
-  if [[ ${LOGLEVEL} == "DEBUG" || ${LOGLVL} -ge 4 ]]; then
+  if [[ ${LOGLEVEL} -ge 4 ]]; then
     log "DEBUG: $*"
   fi
 }
 
 info() {
-  if [[ ${LOGLEVEL} == "INFO" || ${LOGLVL} -ge 3 ]]; then
+  if [[ ${LOGLEVEL} -ge 3 ]]; then
     log "INFO: $*"
   fi
 }
 
 warn() {
-  if [[ ${LOGLEVEL} == "WARN" || ${LOGLVL} -ge 2 ]]; then
+  if [[ ${LOGLEVEL} -ge 2 ]]; then
     log "WARN: $*"
   fi
 }
 
 error() {
-  if [[ ${LOGLEVEL} == "ERROR" || ${LOGLVL} -ge 1 ]]; then
+  if [[ ${LOGLEVEL} -ge 1 ]]; then
     log "ERROR: $*"
   fi
 }
@@ -77,10 +77,8 @@ usage() {
   ENVIRONMENT
 
   LOGLEVEL
-    Set to one of DEBUG, INFO, WARN or ERROR to influence the loglevel. Default is WARN.
+    Numerical log level. 1 is ERROR, 2 is WARN, 3 is INFO and 4 is DEBUG. Default is 2/WARN.
 
-  LOGLVL
-    Numerical equivalent of LOGLEVEL. 1 is ERROR, 2 is WARN, 3 is INFO and 4 is DEBUG.
   "
 }
 
@@ -94,8 +92,7 @@ cmd_example() {
 }
 
 if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
-  : "${LOGLEVEL:=WARN}"
-  : "${LOGLVL:=2}"
+  : "${LOGLEVEL:=2}"
   case "${1:-}" in
     -h | --h*)
       usage
