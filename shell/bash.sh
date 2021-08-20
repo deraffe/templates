@@ -37,10 +37,14 @@ error() {
 }
 
 run() {
-  (
-    set -x
+  if [[ ${LOGLEVEL} -ge ${RUN_LOGLEVEL} ]]; then
+    (
+      set -x
+      "$@"
+    )
+  else
     "$@"
-  )
+  fi
 }
 
 get_script_dir() {
@@ -74,6 +78,8 @@ usage() {
   LOGLEVEL
     Numerical log level. 1 is ERROR, 2 is WARN, 3 is INFO and 4 is DEBUG. Default is 2/WARN.
 
+  RUN_LOGLEVEL
+    Numerical log level at which commands run will be printed to the console. Default is 3/INFO.
   "
 }
 
@@ -93,6 +99,7 @@ cmd_example() {
 
 if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
   : "${LOGLEVEL:=2}"
+  : "${RUN_LOGLEVEL:=3}"
   case "${1:-}" in
     -h | --h*)
       usage
