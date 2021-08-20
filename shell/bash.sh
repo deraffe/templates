@@ -60,26 +60,78 @@ get_script_dir() {
   echo "$DIR"
 }
 
+p() {
+  case "$1" in
+    back)
+      tput cub1
+      ;;
+    down)
+      tput cud1
+      ;;
+    up)
+      tput cuu1
+      ;;
+    del*)
+      tput dch1
+      ;;
+    cursor_highlight)
+      tput cvvis
+      ;;
+    cursor_invisible)
+      tput civis
+      ;;
+    cursor_normal)
+      tput cnorm
+      ;;
+    reset)
+      tput sgr0
+      ;;
+    ital*)
+      tput sitm
+      ;;
+    under*)
+      tput smul
+      ;;
+    standout)
+      tput smso
+      ;;
+    *)
+      debug "Interpreting $1 as terminfo cap"
+      tput "$1"
+      ;;
+  esac
+}
+
+fmt() {
+  text="${1?Please provide text}"
+  shift 1
+  for f in "$@"; do
+    p "$f"
+  done
+  printf "%s" "$text"
+  p reset
+}
+
 usage() {
   echo2 "${BASH_SOURCE[0]} [options] {command}
 
-  OPTIONS
+  $(fmt "OPTIONS" bold underline)
 
-  -h --help
+  $(fmt "-h --help" italics)
     Display this message.
 
-  COMMANDS
+  $(fmt "COMMANDS" bold underline)
 
-  example {arg_one} [arg_two]
+  $(fmt "example {arg_one} [arg_two]" italics)
     An example command
 
-  ENVIRONMENT
+  $(fmt "ENVIRONMENT" bold underline)
 
-  LOGLEVEL
-    Numerical log level. 1 is ERROR, 2 is WARN, 3 is INFO and 4 is DEBUG. Default is 2/WARN.
+  $(fmt "LOGLEVEL" italics)
+    Numerical log level. 1 is $(fmt "ERROR" ital), 2 is $(fmt "WARN" ital), 3 is $(fmt "INFO" ital) and 4 is $(fmt "DEBUG" ital). Default is 2/$(fmt "WARN" ital).
 
-  RUN_LOGLEVEL
-    Numerical log level at which commands run will be printed to the console. Default is 3/INFO.
+  $(fmt "RUN_LOGLEVEL" italics)
+    Numerical log level at which commands run will be printed to the console. Default is 3/$(fmt "INFO" ital).
   "
 }
 
