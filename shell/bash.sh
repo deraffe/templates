@@ -56,11 +56,6 @@ get_script_dir() {
   echo "$DIR"
 }
 
-cleanup() {
-  info "Cleaning up..."
-  info "Done."
-}
-
 usage() {
   echo2 "${BASH_SOURCE[0]} [options] {command}
 
@@ -80,6 +75,11 @@ usage() {
     Numerical log level. 1 is ERROR, 2 is WARN, 3 is INFO and 4 is DEBUG. Default is 2/WARN.
 
   "
+}
+
+cleanup() {
+  info "Cleaning up..."
+  info "Done."
 }
 
 cmd_example() {
