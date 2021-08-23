@@ -42,6 +42,14 @@ error() {
   fi
 }
 
+calc() {
+  (
+    # shellcheck disable=SC2030
+    LC_ALL=C
+    printf "%.2f" "$(bc -l <<< "$@")"
+  )
+}
+
 run() {
   if [[ ${LOGLEVEL} -ge ${RUN_LOGLEVEL} ]]; then
     (
