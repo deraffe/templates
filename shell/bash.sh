@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 # exit on error, exit on undefined variables, error on failing pipe commands
 set -euo pipefail
-# error on commands in command substitutions
-shopt -s inherit_errexit # bash >= 4.4
+
+# bash >= 4.4
+if [[ ${BASH_VERSINFO[0]} -gt 4 ||
+  ${BASH_VERSINFO[0]} -eq 4 && ${BASH_VERSINFO[1]} -ge 4 ]] \
+  ; then
+  # error on commands in command substitutions
+  shopt -s inherit_errexit
+fi
 
 echo2() {
   echo "$@" >&2
