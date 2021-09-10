@@ -217,3 +217,5 @@ if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
       ;;
   esac
 fi
+
+# vim: set ts=2 sw=2 et ft=bash :
