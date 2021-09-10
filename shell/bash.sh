@@ -75,6 +75,36 @@ get_script_dir() {
 }
 
 p() {
+  ansi_color() {
+    # see terminfo(5) for setaf/setab
+    case "${1}" in
+      black)
+        echo 0
+        ;;
+      red)
+        echo 1
+        ;;
+      green)
+        echo 2
+        ;;
+      yellow)
+        echo 3
+        ;;
+      blue)
+        echo 4
+        ;;
+      magenta)
+        echo 5
+        ;;
+      cyan)
+        echo 6
+        ;;
+      white)
+        echo 7
+        ;;
+    esac
+  }
+
   case "$1" in
     back)
       tput cub1
@@ -108,6 +138,12 @@ p() {
       ;;
     standout)
       tput smso
+      ;;
+    fg_*)
+      tput setaf "$(ansi_color "${1##fg_}")"
+      ;;
+    bg_*)
+      tput setab "$(ansi_color "${1##bg_}")"
       ;;
     *)
       debug "Interpreting $1 as terminfo cap"
