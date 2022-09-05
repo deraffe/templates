@@ -1,12 +1,12 @@
 # add _logging_usage to usage
 
 
-_echo2() {
-  echo "$@" >&2
+_msg() {
+  echo -e "$@" >&2
 }
 
 _log() {
-  _echo2 "[$(date '+%F %H:%M:%S')] ${1}"
+  _msg "[$(date '+%F %H:%M:%S')] ${1}"
 }
 
 _debug() {
@@ -31,6 +31,11 @@ _error() {
   if [[ ${LOGLEVEL} -ge 1 ]]; then
     _log "ERROR: $*"
   fi
+}
+
+_die() {
+  LOGLEVEL=1 _error "${1}"
+  exit "${2-1}"
 }
 
 _run() {
