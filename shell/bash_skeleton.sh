@@ -22,10 +22,10 @@ _is_bash_version() {
   # test if bash is at least this version
 
   # optional dependency: logging
-  _dummy debug function
+  _dummy _debug function
   major="${1}"
   minor="${2}"
-  debug "Requiring Bash ${major}.${minor}"
+  _debug "Requiring Bash ${major}.${minor}"
   [[ ${BASH_VERSINFO[0]} -gt "${major}" \
     || ${BASH_VERSINFO[0]} -eq "${major}" \
     && ${BASH_VERSINFO[1]} -ge "${minor}" ]]
