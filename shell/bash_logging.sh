@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # add _logging_usage to usage
 
 
@@ -86,7 +87,7 @@ _p() {
   }
 
   _tput() {
-    if [[ -t 1 ]]; then
+    if [[ -t 2 ]]; then
       tput "$1"
     else
       _default_escape_codes "$1"
@@ -152,7 +153,7 @@ _fmt() {
 }
 
 _logging_usage() {
-  cat <<-EOF
+  cat >&2 <<-EOF
   $(_fmt "NO_COLOR" italics)
     If set, disables all escape-code formatting.
 

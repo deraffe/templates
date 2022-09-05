@@ -64,7 +64,7 @@ usage() {
   if [[ $(type -t fmt) != "function" ]]; then
     _fmt() { echo "$1"; }
   fi
-  cat <<-EOF
+  cat >&2 <<-EOF
 Usage: $(basename ${BASH_SOURCE[0]}) [FIXME options] {FIXME command}
 
   FIXME Description
