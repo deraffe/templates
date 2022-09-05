@@ -45,6 +45,7 @@ _run() {
 }
 
 _p() {
+  [[ -n "${NO_COLOR:-}" ]] && return 0
   _ansi_color() {
     # see terminfo(5) for setaf/setab
     case "${1}" in
@@ -147,6 +148,9 @@ _fmt() {
 
 _logging_usage() {
   cat <<-EOF
+  $(_fmt "NO_COLOR" italics)
+    If set, disables all escape-code formatting.
+
   $(_fmt "LOGLEVEL" italics)
     Numerical log level. 1 is $(_fmt "ERROR" ital), 2 is $(_fmt "WARN" ital), 3 is $(_fmt "INFO" ital) and 4 is $(_fmt "DEBUG" ital). Default is 2/$(_fmt "WARN" ital).
 
