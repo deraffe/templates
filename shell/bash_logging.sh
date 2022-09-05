@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# add _logging_usage to usage
+# add _logging_usage to usage and set {,RUN_}LOGLEVEL defaults
 
 
 _msg() {
@@ -11,25 +11,25 @@ _log() {
 }
 
 _debug() {
-  if [[ ${LOGLEVEL} -ge 4 ]]; then
+  if [[ ${LOGLEVEL:-} -ge 4 ]]; then
     _log "DEBUG: $*"
   fi
 }
 
 _info() {
-  if [[ ${LOGLEVEL} -ge 3 ]]; then
+  if [[ ${LOGLEVEL:-} -ge 3 ]]; then
     _log "INFO: $*"
   fi
 }
 
 _warn() {
-  if [[ ${LOGLEVEL} -ge 2 ]]; then
+  if [[ ${LOGLEVEL:-} -ge 2 ]]; then
     _log "WARN: $*"
   fi
 }
 
 _error() {
-  if [[ ${LOGLEVEL} -ge 1 ]]; then
+  if [[ ${LOGLEVEL:-} -ge 1 ]]; then
     _log "ERROR: $*"
   fi
 }
@@ -40,7 +40,7 @@ _die() {
 }
 
 _run() {
-  if [[ ${LOGLEVEL} -ge ${RUN_LOGLEVEL} ]]; then
+  if [[ ${LOGLEVEL:-} -ge ${RUN_LOGLEVEL:-} ]]; then
     (
       set -x
       "$@"
@@ -164,5 +164,8 @@ _logging_usage() {
     Numerical log level at which commands run will be printed to the console. Default is 3/$(_fmt "INFO" ital).
 EOF
 }
+
+LOGLEVEL:=2
+RUN_LOGLEVEL:=3
 
 # vim: set ts=2 sw=2 et ft=bash :
